@@ -41,3 +41,17 @@ for (( i=1; i<=$count; i++ )); do
   requests=$((requests + 1))
 
   # Print the result
+    echo $result
+
+  # Print a summary every 20 output lines
+  if (( $i % 20 == 0 )); then
+    average_time=$(echo "scale=3; $total_time / $requests" | bc)
+    echo "Ping summary: Requests=$requests, Total time=$total_time s, Average time=$average_time s, Total bytes downloaded=$total_bytes bytes"
+  fi
+  sleep 1
+done
+
+# Calculate the average time and print the final summary
+average_time=$(echo "scale=3; $total_time / $requests" | bc)
+echo "Final ping summary: Requests=$requests, Total time=$( echo "$total_time / 1" | bc)s, Average time=$average_time s, Total bytes downloaded=$total_bytes bytes"
+
